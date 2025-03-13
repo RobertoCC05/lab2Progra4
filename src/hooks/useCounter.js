@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 export function useCounter(favNumber){
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(
+      Number(localStorage.getItem("count")|| 0 )
+    )
     const [countCheck, setCountCheck] = useState(false)
     const dicreaseCount = () =>{
       if(count >0){
@@ -12,6 +14,10 @@ export function useCounter(favNumber){
         setCount((count) => count +1);
       }
     }
+
+    useEffect(() => {
+      localStorage.setItem("count",count)
+    }, [count])
     
     useEffect(() => {
       if (count === favNumber) {
